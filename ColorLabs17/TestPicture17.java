@@ -6,7 +6,7 @@
  * @author (Kevin Hayes)
  * @version (10-19-2016)
  */
-import java.awt.*;
+import java.awt.*; //the colr class is in the awt librairy 
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
 public class TestPicture17
@@ -19,7 +19,7 @@ public class TestPicture17
   public static void main(String[] args)
   {
       //opens picture using a dialog box
-      /**/
+      /*
      String fileName = FileChooser.pickAFile();
      Picture pictObj = new Picture(fileName);
      pictObj.explore();
@@ -27,15 +27,21 @@ public class TestPicture17
      //opens a pictue using a path
      //Picture apic = new Picture("C:\\Users\\khayes\\Favorites\\Documents\APCS- Java\chap03\Curriclum 2013\Picture Color labs\images\\beach.jpg");
      
+     KNOW THIS!!
+     */
+    
      //relative path
      Picture apic = new Picture("images\\beach.jpg");
      Picture ferris1 = new Picture("images/2000 ferris wheel2.jpg");
-     Picture ferris2 = new Picture("images/2000 ferris wheel2.jpg");
+     Picture moto = new Picture("images/redMotorcycle.jpg");
      Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
 
-     //apic.explore();
+     apic.explore(); //THIS DISPLAYS THE PICTURE
      ferris1.explore();
+     moto.explore();
      
+     
+     //to change color of pic get all of the pizels!!!!!!
      //makes an array of pixels
      Pixel[] pixels;
      //gets pixels from picture and assigns to pixels array
@@ -50,9 +56,35 @@ public class TestPicture17
     System.out.println(pixels[17]);
     //access each pixel
     Pixel spot = ferris1.getPixel(100,100);
+    Pixel spot2 = ferris1.getPixel(433, 283);
+    Pixel ferr17 = pixels[17];
+    
+    ferr17.setRed(240);
+    ferr17.setGreen(160);
+    ferr17.setBlue(200);
+    
+    Color newColor = new Color(255, 99, 71);
+    spot2.setColor(Color.blue);
+    
+    spot.setColor(newColor);
+    
+    
+    ferris1.explore();
     
     System.out.println(pixels[17].getColor());
     System.out.println(spot);
+    
+    
+    for(int i = 0; i<1000; i++)
+    {
+        Pixel yuck = ferris1.getPixel((int)(Math.random()*1000), (int)(Math.random()*1000));
+        yuck.setColor(Color.green);
+    }
+    ferris1.explore();
+    
+    
+    
+    
 /*
     pixels[17].setColor(Color.blue);
     spot.setColor(new Color(252,252,252));
