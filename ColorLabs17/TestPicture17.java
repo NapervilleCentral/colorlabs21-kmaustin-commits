@@ -1,10 +1,10 @@
 /**
  * Kaylie Austin 
  * Test Picture Classes
- * 11/11/2025
+ * 11/12/2025
  */
 
-import java.awt.*; //the colr class is in the awt librairy 
+import java.awt.*; //the color class is in the awt librairy 
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
 
@@ -22,79 +22,96 @@ public class TestPicture17
     
       /**/
      //relative path
-    // Picture apic = new Picture("images\\beach.jpg");
-    // Picture ferris1 = new Picture("images/2000 ferris wheel2.jpg");
-   //  Picture moto = new Picture("images/redMotorcycle.jpg");
-    // Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
-     
-     Picture pic1 = new Picture("images\\blue-mark.jpg"); 
+     //Picture apic = new Picture("images\\beach.jpg");
+     //Picture ferris1 = new Picture("images/2000 ferris wheel2.jpg");
+     //Picture moto = new Picture("images/redMotorcycle.jpg");
+     //Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
+ 
+        Picture pic1 = new Picture("images/blue-mark.jpg"); 
+        Picture pic2 = new Picture("images/blue-mark.jpg"); 
+        Picture pic3 = new Picture("images/blue-mark.jpg"); 
+        Picture pic4 = new Picture("images/blue-mark.jpg"); 
+        Picture pic5 = new Picture("images/blue-mark.jpg"); 
+        Picture pic6 = new Picture("images/blue-mark.jpg"); 
+        Picture pic7 = new Picture("images/blue-mark.jpg"); 
+        //Pixel[] Mpixels = pic1.getPixels();
+        Pixel[] pixels; 
+        pixels = pic1.getPixels();
+        
+        pic1.explore();
+          
+        // ADJUST COLOR 
+        for (Pixel spot1 : pixels) {
+            int green = spot1.getGreen();
+            green = (int)(green * 0.25); // reduce green by 75%
+            spot1.setGreen(green);
+        }
+        pic1.explore();
+        
+        // NEGATE GREEN 
+        for (Pixel spot1 : pixels) {
+            int green = spot1.getGreen();
+            green = 255 - green;
+            spot1.setGreen(green);
+        }
+        pic1.explore();
+        
+        // GRAYSCALE FIX 
+        for (Pixel spot1 : pixels) {
+            int red = spot1.getRed();
+            int green = spot1.getGreen();
+            int blue = spot1.getBlue();
+            
+            int avg = (red + green + blue) / 3;
+            spot1.setRed(avg);
+            spot1.setGreen(avg);
+            spot1.setBlue(avg);
+        }
+        pic1.explore();
 
-    Pixel[] Mpixels;
-    Mpixels= pic1.getPixels();
+        
+        // LIGHTEN OR DARKEN 
+        for (Pixel spot1 : pixels) {
+            // increase brightness by 20%
+            int red = Math.min((int)(spot1.getRed() * 1.2), 255);
+            int green = Math.min((int)(spot1.getGreen() * 1.2), 255);
+            int blue = Math.min((int)(spot1.getBlue() * 1.2), 255);
+            
+            spot1.setRed(red);
+            spot1.setGreen(green);
+            spot1.setBlue(blue);
+        }
+        pic1.explore();
+
+        
+        // CHANGE COLOR /////////////////////////////FIXXXXXXXXXX!!!!!!!!!!!!
+        for (Pixel spot1 : pixels) {
+            //backgorund is very blue. change the blue background to orange. dont change the color of the person in the middle of the background
+            int blue = spot1.getBlue();
+            blue = 100 - blue;
+            spot1.setBlue(blue);
+        }
+         pic1.explore();
+
+        // BLUEIFY 
+        for (Pixel spot1 : pixels) {
+        int blue = (spot1.getBlue() * 5);
+        spot1.setBlue(blue);
+        }
+        pic1.explore();
+
+    }
+}
+
     
-    //ADJUST COLOR 
-    for (Pixel spot1 : Mpixels)
-    {
-        int green = spot1.getGreen();
-        green = (int)(green * .25);
-        spot1.setGreen(green);
-    }
-    pic1.explore();
-     
-    //NEGATE
-    for (Pixel spot1 : Mpixels)
-    {
-        int negatecolor = spot1.getGreen();
-        negatecolor = (int)(255 - negatecolor);
-        spot1.setGreen(negatecolor);
-    }
-    pic1.explore();
     
-    //GRAYSCALE //FIX
-    for (Pixel spot1 : Mpixels)
-    {
-        int red = spot1.getRed();
-        int green = spot1.getGreen();
-        int blue = spot1.getBlue();
-        
-        int color = ((red + green + blue)/3);
-        //spot1.color(grayscale);
-    }
-    pic1.explore();
-     
-    //lighten or darken
-    for (Pixel spot1 : Mpixels)
-    {
-        int lightenGreen = spot1.getGreen();
-        spot1.setGreen(lightenGreen);
-        
-        int lightenRed = spot1.getRed();
-        spot1.setRed(lightenRed);
-        
-        int lightenBlue = spot1.getBlue();
-        spot1.getBlue(lightenBlue);
-    }
-    pic1.explore();
     
-    //changeColor() //FIX
-    for (Pixel spot1 : Mpixels)
-    {
-        changeColors(23, 56, 677);
-    }
-    pic1.explore();
     
-    //colorify() or blueify() //FIX
-    for (Pixel spot1 : Mpixels)
-    {
-        blueify();
-        
-        if ()
-        
-        int blueify = spot1.getBlue();
-        blueify = int(23, 42, 94);
-        spot1.setBlue(blueify); 
-    }
-    pic1.explore();
+    
+    
+    
+    
+    
     
     
     
@@ -252,5 +269,5 @@ final double  FACTOR = .5;
    // ferris1.write("images/ferris11.jpg");
 
     /**/
-  }//main
-}//class
+
+
