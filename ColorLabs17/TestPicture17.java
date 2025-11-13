@@ -34,11 +34,13 @@ public class TestPicture17
         Picture pic5 = new Picture("images/blue-mark.jpg"); 
         Picture pic6 = new Picture("images/blue-mark.jpg"); 
         Picture pic7 = new Picture("images/blue-mark.jpg"); 
-        //Pixel[] Mpixels = pic1.getPixels();
+   
         Pixel[] pixels; 
         pixels = pic1.getPixels();
         
         pic1.explore();
+        pixels = pic7.getPixels();
+        
           
         // ADJUST COLOR 
         for (Pixel spot1 : pixels) {
@@ -46,7 +48,8 @@ public class TestPicture17
             green = (int)(green * 0.25); // reduce green by 75%
             spot1.setGreen(green);
         }
-        pic1.explore();
+        pic7.explore();
+        pixels = pic1.getPixels();
         
         // NEGATE GREEN 
         for (Pixel spot1 : pixels) {
@@ -55,6 +58,7 @@ public class TestPicture17
             spot1.setGreen(green);
         }
         pic1.explore();
+        pixels = pic2.getPixels();
         
         // GRAYSCALE FIX 
         for (Pixel spot1 : pixels) {
@@ -67,7 +71,8 @@ public class TestPicture17
             spot1.setGreen(avg);
             spot1.setBlue(avg);
         }
-        pic1.explore();
+        pic2.explore();
+        pixels = pic3.getPixels();
 
         
         // LIGHTEN OR DARKEN 
@@ -81,24 +86,42 @@ public class TestPicture17
             spot1.setGreen(green);
             spot1.setBlue(blue);
         }
-        pic1.explore();
+        pic3.explore();
+        pixels = pic4.getPixels();
 
-        
-        // CHANGE COLOR /////////////////////////////FIXXXXXXXXXX!!!!!!!!!!!!
+
         for (Pixel spot1 : pixels) {
-            //backgorund is very blue. change the blue background to orange. dont change the color of the person in the middle of the background
+            int red = spot1.getRed();
+            int green = spot1.getGreen();
             int blue = spot1.getBlue();
-            blue = 100 - blue;
-            spot1.setBlue(blue);
+        
+            if (blue > 150 && blue > red + 40 && blue > green + 40) {
+                spot1.setRed(0);
+                spot1.setGreen(255);
+                spot1.setBlue(0);
+            } 
+            else if (blue > 100 && blue > red + 25 && blue > green + 25) {
+                spot1.setRed(50);
+                spot1.setGreen(200);
+                spot1.setBlue(50);
+            } 
+            else if (blue > 60 && blue > red + 10 && blue > green + 10) {
+        
+                spot1.setRed(80);
+                spot1.setGreen(180);
+                spot1.setBlue(80);
+            }
         }
-         pic1.explore();
+         pic4.explore();
+         pixels = pic5.getPixels();
+
 
         // BLUEIFY 
         for (Pixel spot1 : pixels) {
         int blue = (spot1.getBlue() * 5);
         spot1.setBlue(blue);
         }
-        pic1.explore();
+        pic5.explore();
 
     }
 }
