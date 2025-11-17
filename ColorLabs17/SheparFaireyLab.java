@@ -159,8 +159,8 @@ Color c1 = new Color(208, 0, 117);        // D00075
 Color c11 = new Color(246, 218, 233);     // F6DAE9
 Color c2 = new Color(238, 76, 167);       // EE4CA7
 Color c3 = new Color(255, 150, 209);      // FF96D1
-Color c4 = new Color(255, 251, 253);      // FFFBFD
-Color c5 = new Color(255, 255, 255);      // White
+Color c4 = new Color(255, 241, 243);      // FFFBFD
+Color c5 = new Color(255, 249, 249);      // White
 
 
 //Color each pixel based on 5 groups
@@ -175,9 +175,7 @@ for (Pixel spot : pixels) {
         spot.setColor(c3);
     } else if (gray < cut4) {
         spot.setColor(c4);
-        
-    }
-        else if (gray < cut5) {
+    } else if (gray < cut5) {
         spot.setColor(c11);
     } else {
         spot.setColor(c5);
@@ -185,8 +183,8 @@ for (Pixel spot : pixels) {
 }
 
 selfieM3V1.explore();
-selfieM3V1.write("images/SFtry3_5colors.jpg");
-
+selfieM3V1.write("images/SFtry4_5colors.jpg");
+//PRINT THIS VERSION^^^
          
     }     
 }
