@@ -1,120 +1,192 @@
 
 /**
  * Write a description of class SheparFaireyLab here.
- * @author (your name) 
- * @version (a version number or a date)
+ * Kaylie Austin 
+ * 11/17/2025
  */
+
 import java.awt.*;
 import java.util.*;
-import java.util.List; // resolves problem with java.awt.List and java.util.List
+import java.util.List;
 
 public class SheparFaireyLab
 {
     public static void main(String[] args)
     {
-        Picture selfie = new Picture("images/IMG_63010.jpg");
-        Picture selfieM1 = new Picture("images/IMG_63010.jpg");
-        Picture selfieM2 = new Picture("images/IMG_63010.jpg");
-        Picture selfieM3V1 = new Picture("images/IMG_63010.jpg");
-        Picture selfieM3V2 = new Picture("images/IMG_63010.jpg");
-        Picture selfieM3V3 = new Picture("images/IMG_63010.jpg");
-        Picture selfieM3V4 = new Picture("images/IMG_63010.jpg");
+        Picture selfie = new Picture("images/IMG_6310.jpg");
+        Picture selfieM1 = new Picture("images/IMG_6310.jpg");
+        Picture selfieM2 = new Picture("images/IMG_6310.jpg");
+        Picture selfieM3V1 = new Picture("images/IMG_6310.jpg");
+        Picture selfieM3V2 = new Picture("images/IMG_6310.jpg");
+        Picture selfieM3V3 = new Picture("images/IMG_6310.jpg");
+        Picture selfieM3V4 = new Picture("images/IMG_6310.jpg");
         
         
-        Pixel[] pixels; 
-        pixels = selfie.getPixels();
-        selfie.explore();
+        Pixel[] pixels;
         
         
-        
-        pixels = selfieM1.getPixels();        
-        /*
-        METHOD 1
-        Method one – a balanced approach.  This method uses all four colors in equal amounts. 
-        This is easily done by dividing the sorted list of pixels values into four equally sized groups. 
-        The pixels in group 1,2,3 and 4 are colored dark blue, red, light blue and off-white respectively.
-         */
+        pixels = selfieM1.getPixels();
 
-        for (Pixel spot1 : pixels) {
-            int green = spot1.getGreen();
-            green = (int)(green * 0.25); // reduce green by 75%
-            spot1.setGreen(green);
-        
-            
-            int darkBlue = 
-            int red = spot1.getRed();
-            int lightBlue = 
-            int offWhite = 
-        }
-        selfieM1.explore();
-        //selfie.write("images/MethodOneSelfie")
-        
-        
-        
-        
-        
-        pixels = selfieM2.getPixels();
-        /*
-        METHOD 2
-        Method two- an intense approach.  This method colors by intensity and generally
-        won't use the colors in equal amounts. After the sorting, find the smallest and 
-        largest grayscale values in the image and call them s (small) and b (big).  Then, 
-        divide the interval between s and b into 4 equally spaced subintervals. Therefore, 
-        every pixel in the image has a value greater or equal to s and less than (b-s)/4 is
-        in group 1. Note , we don't know how may pixels this will be.  The other groups are
-        formed in a similar way.  Then, as before, the pixels in group 1,2,3 and 4 are colored 
-        dark blue, red, light blue and off-white, respectively.Take your picture and run it
-        thru both of your methods to see the result.
-         */
 
-        for (Pixel spot1 : pixels) {
-           
-        
-        }
-        selfieM2.explore();
-        //selfie.write("images/MethodTwoSelfie")
-        
-       
-        
-        
-        
-        
-        
-        /* 
-        METHOD 3
-        Method three – a different set of colors. We all want to put our best foot forward. 
-        We refine our work several times until it looks the way we want.Rarly is the first try our best work.
-        Choose your own color palette and convert your picture. 
-1)	Save you first attempt as SFtry1.pictureformat, ask for inputs and maybe your own thoughts in the ReadMe doc.
-2)	Edit algorithm and display again- save as SFtry2.format get some more input/and your own thoughts
-3)	Edit algorithm and display again- save as SFtry3.format get some more input/and your own thoughts
-4)	Edit algorithm and display again save as SFmyFinal.format – I hope you are proud of your work
+//Make a list of grayscale values
+List<Integer> grayValues = new ArrayList<>(); //found on stackoverflow!!
+for (Pixel p : pixels) {
+    int gray = (int)((p.getRed() + p.getGreen() + p.getBlue()) / 3.0);
+    grayValues.add(gray);
+}
 
-This link may help you choose a different 4-color pallet.
-http://paletton.com/#uid=71T1p0kllll1FEsbvsfvberW17x
 
-       COLORS:
-       base color = FF96D1
-       FFFFFF
-       FFFBFD
-       EE4CA7
-       D00075
+//Sort
+Collections.sort(grayValues);
 
-Turn in Repo  (FirstLastPictureLab) with: several pictures and source code.
-After you change your picture can you extend & add or just add a word to the bottom (using Paint makes this easy)
-You must  .write("path.jpg")  to save your picture.
 
-        */
-        
-        
-        
+// Determine cut points
+int size = grayValues.size();
+int g1 = grayValues.get(size / 4);
+int g2 = grayValues.get(size / 2);
+int g3 = grayValues.get(3 * size / 4);
 
-       
-       
-       
-       
-       
+
+//Assign colors based on group
+for (Pixel spot : pixels) {
+    int gray = (spot.getRed() + spot.getGreen() + spot.getBlue()) / 3;
+
+    Color darkBlue = new Color(0, 51, 102);
+    Color red = new Color(204, 0, 0);
+    Color lightBlue = new Color(102, 178, 255);
+    Color offWhite = new Color(255, 249, 230);
+
+
+    if (gray < g1) {
+        spot.setColor(darkBlue);
+    } else if (gray < g2) {
+        spot.setColor(red);
+    } else if (gray < g3) {
+        spot.setColor(lightBlue);
+    } else {
+        spot.setColor(offWhite);
+    }
+}
+
+
+selfieM1.explore();
+//selfieM1.write("images/SFMethod1.jpg");
+
+
+
+
+
+
+
+
+pixels = selfieM2.getPixels();
+
+
+// Find smallest and biggest grayscale values
+int s = 255;
+int b = 0;
+
+
+for (Pixel p : pixels) {
+    int gray = (p.getRed() + p.getGreen() + p.getBlue()) / 3;
+    if (gray < s) s = gray;
+    if (gray > b) b = gray;
+}
+
+
+// Find interval ranges
+int interval = (b - s) / 4;
+
+
+// Color pixels by which interval they fall in
+for (Pixel spot : pixels) {
+
+
+    int gray = (spot.getRed() + spot.getGreen() + spot.getBlue()) / 3;
+
+
+    Color darkBlue = new Color(0, 51, 102);
+    Color red = new Color(204, 0, 0);
+    Color lightBlue = new Color(102, 178, 255);
+    Color offWhite = new Color(255, 249, 230);
+
+
+    if (gray < s + interval) {
+        spot.setColor(darkBlue);
+    } else if (gray < s + 2 * interval) {
+        spot.setColor(red);
+    } else if (gray < s + 3 * interval) {
+        spot.setColor(lightBlue);
+    } else {
+        spot.setColor(offWhite);
+    }
+}
+
+selfieM2.explore();
+//selfieM2.write("images/SFMethod2.jpg");
+
+
+
+
+
+
+// METHOD 3 – 5-Color Palette (your full color set)------------------------------------------
+pixels = selfieM3V1.getPixels();
+
+
+//Build grayscale list
+List<Integer> grayVals = new ArrayList<>();
+for (Pixel p : pixels) {
+    int gray = (p.getRed() + p.getGreen() + p.getBlue()) / 3;
+    grayVals.add(gray);
+}
+
+
+//Sort
+Collections.sort(grayVals);
+
+//5 sections (20%, 40%, 60%, 80%)
+size = grayVals.size();
+int cut1 = grayVals.get(size / 6);       
+int cut2 = grayVals.get(2 * size / 6);    
+int cut3 = grayVals.get(3 * size / 6);
+int cut4 = grayVals.get(4 * size / 6);
+int cut5 = grayVals.get(5 * size / 6);
+
+
+//Colors
+Color c1 = new Color(208, 0, 117);        // D00075
+Color c11 = new Color(246, 218, 233);     // F6DAE9
+Color c2 = new Color(238, 76, 167);       // EE4CA7
+Color c3 = new Color(255, 150, 209);      // FF96D1
+Color c4 = new Color(255, 251, 253);      // FFFBFD
+Color c5 = new Color(255, 255, 255);      // White
+
+
+//Color each pixel based on 5 groups
+for (Pixel spot : pixels) {
+    int gray = (spot.getRed() + spot.getGreen() + spot.getBlue()) / 3;
+
+    if (gray < cut1) {
+        spot.setColor(c1);
+    } else if (gray < cut2) {
+        spot.setColor(c2);
+    } else if (gray < cut3) {
+        spot.setColor(c3);
+    } else if (gray < cut4) {
+        spot.setColor(c4);
         
+    }
+        else if (gray < cut5) {
+        spot.setColor(c11);
+    } else {
+        spot.setColor(c5);
+    }
+}
+
+selfieM3V1.explore();
+selfieM3V1.write("images/SFtry3_5colors.jpg");
+
          
-    }//main       
-}//class
+    }     
+}
