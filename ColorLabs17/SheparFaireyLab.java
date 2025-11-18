@@ -183,7 +183,7 @@ for (Pixel spot : pixels) {
 }
 
 selfieM3V1.explore();
-selfieM3V1.write("images/SFtry4_5colors.jpg");
+//selfieM3V1.write("images/SFtry4_5colors.jpg");
 //PRINT THIS VERSION^^^
          
     }     
