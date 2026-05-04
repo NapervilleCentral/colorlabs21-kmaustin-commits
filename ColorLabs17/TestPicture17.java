@@ -26,7 +26,7 @@ public class TestPicture17
      //Picture ferris1 = new Picture("images/2000 ferris wheel2.jpg");
      //Picture moto = new Picture("images/redMotorcycle.jpg");
      //Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
- 
+ /*
         Picture pic1 = new Picture("images/blue-mark.jpg"); 
         Picture pic2 = new Picture("images/blue-mark.jpg"); 
         Picture pic3 = new Picture("images/blue-mark.jpg"); 
@@ -34,6 +34,7 @@ public class TestPicture17
         Picture pic5 = new Picture("images/blue-mark.jpg"); 
         Picture pic6 = new Picture("images/blue-mark.jpg"); 
         Picture pic7 = new Picture("images/blue-mark.jpg"); 
+    
    
         Pixel[] pixels; 
         pixels = pic1.getPixels();
