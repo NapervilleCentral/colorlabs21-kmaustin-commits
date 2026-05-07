@@ -17,7 +17,6 @@ import java.awt.Color;
 //center the second image in blend to the center of the orginal image
 //for my recursive method, I want it in the bottom left hand side
 //I would like it to recursive into the bottom left hand corner 
-//make the the hue shift a bit more green and less bright
 
 public class PosterProject
 {
@@ -152,7 +151,7 @@ public class PosterProject
                 int avg = (red + green + blue) / 3;
     
                 int newRed = avg / 4;                   //red
-                int newGreen = Math.min(255, avg + 50); //green
+                int newGreen = Math.min(255, avg + 15); //green
                 int newBlue = avg / 2;                  //blue
     
                 pixel.setRed(newRed);
@@ -224,7 +223,6 @@ public class PosterProject
         {
             for (int sourceY = 0; sourceY < source.getHeight(); sourceY++)
             {
-                // make sure we don’t go off the canvas
                 if (startX + sourceX < target.getWidth() && startY + sourceY < target.getHeight())
                 {
                     sourcePix = source.getPixel(sourceX, sourceY);
