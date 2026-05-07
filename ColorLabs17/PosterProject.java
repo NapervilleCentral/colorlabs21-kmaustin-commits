@@ -50,17 +50,57 @@ public class PosterProject
         Picture grayScale = new Picture(original);
         GrayScale(grayScale); 
         
+        // blend version
+        Picture blendedPic = blend(original, IWannaBeYours);
+        
         // put on Canvas
         copyToCanvas(tealVersion, acanvas, 2560, 0); // top right area original
         copyToCanvas(original, acanvas, 0, 0); //top left area
         copyToCanvas(mirrored, acanvas, 2560, 1440); // middle right area
         copyToCanvas(grayScale, acanvas, 0, 1440); // middle right area
+        copyToCanvas(blendedPic, acanvas, 2580, 2415);
         
         // display
         acanvas.explore();
     }
 
     
+//BLEND TWO IMAGES
+public static Picture blend(Picture pic1, Picture pic2)
+{
+    // make a copy of the first picture
+    Picture blended = new Picture(pic1);
+
+    Pixel pixel1 = null;
+    Pixel pixel2 = null;
+    Pixel blendedPixel = null;
+
+    // use the smaller dimensions so we don’t go out of bounds
+    int width = Math.min(pic1.getWidth(), pic2.getWidth());
+    int height = Math.min(pic1.getHeight(), pic2.getHeight());
+
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+            pixel1 = pic1.getPixel(x, y);
+            pixel2 = pic2.getPixel(x, y);
+            blendedPixel = blended.getPixel(x, y);
+
+            // average each color channel
+            int red = (pixel1.getRed() + pixel2.getRed()) / 2;
+            int green = (pixel1.getGreen() + pixel2.getGreen()) / 2;
+            int blue = (pixel1.getBlue() + pixel2.getBlue()) / 2;
+
+            blendedPixel.setColor(new Color(red, green, blue));
+        }
+    }
+
+    return blended;
+}
+    
+
+
 //GRAY SCALE
     public static void GrayScale(Picture source)
         {
