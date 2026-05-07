@@ -3,46 +3,36 @@ import java.awt.Color;
 /**
  * Poster Project
  * Kaylie Austin 
- * May 6th, 2026
+ * May 7th, 2026
  **/ 
  
-//one transformation must be a horizontal or vertical mirroring (potentially of the entire collage) (DONE)
-//one transformation must be an original manipulation of the image(rotate, sepia, blend, etc . . . ) 
-//one transformation must be a recursive manipulation of the image
-
 // The collage must be saved as an image file
 // ex. picture.write(FileChooser.getMediaPath(fileName));
 // ex. picture.write(“thisfolder.finalcollege.jpg”);
 
-//the orginal image will be put on the canvas on the top right slot
+//Oringal         Hue Shift
+//Grayscale       Vertical & Horizontal mirroring
+//Recurision      Blend
 
-//Vertical Mirroring (DONE), Grayscale (DONE), Blending, Recursion, Hue shifting (DONE), Orginal (DONE)
-
-//The image is 2560 x 1440 pixels 
-//my canvas that I want to post my 6 images on is 5140 x 3855 pixels
-
-//The image I am going to blend and integrate into the picture called IWannaBeYours. It is 1320 x 990 pixels. 
-//for the blend, I want the IWannaBeYours image to be in the center of an orginal picture and then blend it so we see 50% of my orginal and 50% of my second image
-
-//I also would like to change my vertical mirror to also reflect horizontaly based on the bottom right hand side of the orginal imge
-//Bascially I want to flip it vertically, then flip it horizontally, and then put that new picture in the canvas
-
+//center the second image in blend to the center of the orginal image
 //for my recursive method, I want it in the bottom left hand side
 //I would like it to recursive into the bottom left hand corner 
+//make the the hue shift a bit more green and less bright
 
 public class PosterProject
 {
     public static void main(String[] args)
     {
-        Picture acanvas = new Picture("images/canvas.jpg"); 
-        Picture original = new Picture("images/succulent.jpg"); 
-        Picture IWannaBeYours = new Picture("images/IWannaBeYours.jpg");
+        Picture acanvas = new Picture("images/canvas.jpg");  //2560 x 1440 pixels 
+        Picture original = new Picture("images/succulent.jpg"); //5140 x 4320 pixels
+        Picture IWannaBeYours = new Picture("images/IWannaBeYours.jpg"); //1320 x 990 pixels
         
         // mirror version
         Picture mirrored = new Picture(original);
         mirrorVertical(mirrored);
+        mirrorHorizontal(mirrored);
         
-        // hue-shift (teal) version
+        // hue-shift version
         Picture tealVersion = new Picture(original);
         hueShiftTeal(tealVersion);
         
@@ -58,48 +48,69 @@ public class PosterProject
         copyToCanvas(original, acanvas, 0, 0); //top left area
         copyToCanvas(mirrored, acanvas, 2560, 1440); // middle right area
         copyToCanvas(grayScale, acanvas, 0, 1440); // middle right area
-        copyToCanvas(blendedPic, acanvas, 2580, 2415);
+        copyToCanvas(blendedPic, acanvas, 2560, 2880); //bottom right area
+        //copyToCanvas(recursion, acanvas, 0, 2880); //bottom left area
         
         // display
         acanvas.explore();
     }
 
+  
+// // RECURSION
+// public static Picture recursion(Picture source)
+// {
+    // Pixel sourcePix = null;
+    // Pixel targetPix = null;
     
+    // int width = source.getWidth();
+    // int height = source.getHeight();
+    // Pixel leftPixel = null;
+    // Pixel rightPixel = null;
+        // for (int sourceX = 0; sourceX < source.getWidth(); sourceX++)
+        // {
+            // for (int sourceY = 0; sourceY < source.getHeight(); sourceY++)
+            // {
+
+            // }
+        // }
+// }
+    
+
+
 //BLEND TWO IMAGES
-public static Picture blend(Picture pic1, Picture pic2)
-{
-    // make a copy of the first picture
-    Picture blended = new Picture(pic1);
-
-    Pixel pixel1 = null;
-    Pixel pixel2 = null;
-    Pixel blendedPixel = null;
-
-    // use the smaller dimensions so we don’t go out of bounds
-    int width = Math.min(pic1.getWidth(), pic2.getWidth());
-    int height = Math.min(pic1.getHeight(), pic2.getHeight());
-
-    for (int x = 0; x < width; x++)
+    public static Picture blend(Picture pic1, Picture pic2)
     {
-        for (int y = 0; y < height; y++)
-        {
-            pixel1 = pic1.getPixel(x, y);
-            pixel2 = pic2.getPixel(x, y);
-            blendedPixel = blended.getPixel(x, y);
-
-            // average each color channel
-            int red = (pixel1.getRed() + pixel2.getRed()) / 2;
-            int green = (pixel1.getGreen() + pixel2.getGreen()) / 2;
-            int blue = (pixel1.getBlue() + pixel2.getBlue()) / 2;
-
-            blendedPixel.setColor(new Color(red, green, blue));
-        }
-    }
-
-    return blended;
-}
+        // copy of the first picture
+        Picture blended = new Picture(pic1);
+        
+        //center the second image to the center of my orginal one
     
-
+        Pixel pixel1 = null;
+        Pixel pixel2 = null;
+        Pixel blendedPixel = null;
+    
+        int width = Math.min(pic1.getWidth(), pic2.getWidth());
+        int height = Math.min(pic1.getHeight(), pic2.getHeight());
+    
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                pixel1 = pic1.getPixel(x, y);
+                pixel2 = pic2.getPixel(x, y);
+                blendedPixel = blended.getPixel(x, y);
+    
+                // average each color channel
+                int red = (pixel1.getRed() + pixel2.getRed()) / 2;
+                int green = (pixel1.getGreen() + pixel2.getGreen()) / 2;
+                int blue = (pixel1.getBlue() + pixel2.getBlue()) / 2;
+    
+                blendedPixel.setColor(new Color(red, green, blue));
+            }
+        }
+        return blended;
+    }
+    
 
 //GRAY SCALE
     public static void GrayScale(Picture source)
@@ -176,6 +187,31 @@ public static Picture blend(Picture pic1, Picture pic2)
                 }
             }
         } //mirrorVertical 
+        
+    public static void mirrorHorizontal(Picture source)
+    {
+        int height = source.getHeight();
+        int mirrorPoint = height / 2;
+    
+        Pixel topPixel = null;
+        Pixel bottomPixel = null;
+    
+        // loop through top half
+        for (int y = 0; y < mirrorPoint; y++)
+        {
+            // loop through all columns
+            for (int x = 0; x < source.getWidth(); x++)
+            {
+                topPixel = source.getPixel(x, y);
+    
+                // opposite pixel on bottom
+                bottomPixel = source.getPixel(x, height - 1 - y);
+    
+                // copy color
+                bottomPixel.setColor(topPixel.getColor());
+            }
+        }
+    } //mirrorHorizontal
 
 
 //COPY TO CANVAS

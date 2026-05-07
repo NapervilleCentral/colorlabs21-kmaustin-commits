@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=PosterProject
-comment0.text=\r\n\ Poster\ Project\r\n\ Kaylie\ Austin\ \r\n\ May\ 6th,\ 2026\r\n
+comment0.text=\r\n\ Poster\ Project\r\n\ Kaylie\ Austin\ \r\n\ May\ 7th,\ 2026\r\n
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 comment2.params=pic1\ pic2
@@ -12,6 +12,8 @@ comment4.target=void\ hueShiftTeal(Picture)
 comment5.params=source
 comment5.target=void\ mirrorVertical(Picture)
 comment5.text=\r\n\ Method\ to\ mirror\ a\ vertical\ line\ in\ the\ middle\ of\ the\ picture\ based\ on\ the\ width\ \r\n
-comment6.params=source\ target\ startX\ startY
-comment6.target=void\ copyToCanvas(Picture,\ Picture,\ int,\ int)
-numComments=7
+comment6.params=source
+comment6.target=void\ mirrorHorizontal(Picture)
+comment7.params=source\ target\ startX\ startY
+comment7.target=void\ copyToCanvas(Picture,\ Picture,\ int,\ int)
+numComments=8
