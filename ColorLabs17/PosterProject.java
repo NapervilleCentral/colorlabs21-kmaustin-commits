@@ -77,38 +77,44 @@ public class PosterProject
 
 
 //BLEND TWO IMAGES
-    public static Picture blend(Picture pic1, Picture pic2)
+public static Picture blend(Picture pic1, Picture pic2)
+{
+    // make copy of first picture
+    Picture blended = new Picture(pic1);
+
+    Pixel pixel1 = null;
+    Pixel pixel2 = null;
+    Pixel blendedPixel = null;
+
+    // offsets to center pic2 inside pic1
+    int xOffset = (pic1.getWidth() - pic2.getWidth()) / 2;
+    int yOffset = (pic1.getHeight() - pic2.getHeight()) / 2;
+
+    // loop through second image
+    for (int x = 0; x < pic2.getWidth(); x++)
     {
-        // copy of the first picture
-        Picture blended = new Picture(pic1);
-        
-        //center the second image to the center of my orginal one
-    
-        Pixel pixel1 = null;
-        Pixel pixel2 = null;
-        Pixel blendedPixel = null;
-    
-        int width = Math.min(pic1.getWidth(), pic2.getWidth());
-        int height = Math.min(pic1.getHeight(), pic2.getHeight());
-    
-        for (int x = 0; x < width; x++)
+        for (int y = 0; y < pic2.getHeight(); y++)
         {
-            for (int y = 0; y < height; y++)
-            {
-                pixel1 = pic1.getPixel(x, y);
-                pixel2 = pic2.getPixel(x, y);
-                blendedPixel = blended.getPixel(x, y);
-    
-                // average each color channel
-                int red = (pixel1.getRed() + pixel2.getRed()) / 2;
-                int green = (pixel1.getGreen() + pixel2.getGreen()) / 2;
-                int blue = (pixel1.getBlue() + pixel2.getBlue()) / 2;
-    
-                blendedPixel.setColor(new Color(red, green, blue));
-            }
+            // pixel from original image at centered position
+            pixel1 = pic1.getPixel(x + xOffset, y + yOffset);
+
+            // pixel from second image
+            pixel2 = pic2.getPixel(x, y);
+
+            // pixel in blended image
+            blendedPixel = blended.getPixel(x + xOffset, y + yOffset);
+
+            // average colors
+            int red = (pixel1.getRed() + pixel2.getRed()) / 2;
+            int green = (pixel1.getGreen() + pixel2.getGreen()) / 2;
+            int blue = (pixel1.getBlue() + pixel2.getBlue()) / 2;
+
+            blendedPixel.setColor(new Color(red, green, blue));
         }
-        return blended;
     }
+
+    return blended;
+}
     
 
 //GRAY SCALE
