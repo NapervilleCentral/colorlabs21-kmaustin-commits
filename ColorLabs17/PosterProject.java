@@ -39,6 +39,9 @@ public class PosterProject
         Picture grayScale = new Picture(original);
         GrayScale(grayScale); 
         
+        // recursive version
+        Picture recursivePic = recursion(original, 4);
+        
         // blend version
         Picture blendedPic = blend(original, IWannaBeYours);
         
@@ -48,8 +51,7 @@ public class PosterProject
         copyToCanvas(mirrored, acanvas, 2560, 1440); // middle right area
         copyToCanvas(grayScale, acanvas, 0, 1440); // middle right area
         copyToCanvas(blendedPic, acanvas, 2560, 2880); //bottom right area
-        //copyToCanvas(recursion, acanvas, 0, 2880); //bottom left area
-        
+        copyToCanvas(recursivePic, acanvas, 0, 2880); // bottom left area        
         // display
         acanvas.explore();
     }
@@ -74,6 +76,44 @@ public class PosterProject
         // }
 // }
     
+
+
+// RECURSION
+public static Picture recursion(Picture source, int times)
+{
+    // base case
+    if (times <= 0)
+    {
+        return source;
+    }
+
+    Picture result = new Picture(source);
+
+    // make recursive image larger
+    int smallWidth = (int)(source.getWidth() * 0.75);
+    int smallHeight = (int)(source.getHeight() * 0.75);
+
+    for (int x = 0; x < smallWidth; x++)
+    {
+        for (int y = 0; y < smallHeight; y++)
+        {
+            Pixel sourcePix = source.getPixel(
+                (int)(x / 0.75),
+                (int)(y / 0.75)
+            );
+
+            // bottom-left placement
+            Pixel targetPix = result.getPixel(
+                x,
+                source.getHeight() - smallHeight + y
+            );
+
+            targetPix.setColor(sourcePix.getColor());
+        }
+    }
+
+    return recursion(result, times - 1);
+}
 
 
 //BLEND TWO IMAGES
