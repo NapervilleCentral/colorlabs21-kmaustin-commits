@@ -3,20 +3,17 @@ import java.awt.Color;
 /**
  * Poster Project
  * Kaylie Austin 
- * May 7th, 2026
+ * May 12th, 2026
  **/ 
  
 // The collage must be saved as an image file
 // ex. picture.write(FileChooser.getMediaPath(fileName));
 // ex. picture.write(“thisfolder.finalcollege.jpg”);
 
+
 //Oringal         Hue Shift
 //Grayscale       Vertical & Horizontal mirroring
 //Recurision      Blend
-
-//center the second image in blend to the center of the orginal image
-//for my recursive method, I want it in the bottom left hand side
-//I would like it to recursive into the bottom left hand corner 
 
 public class PosterProject
 {
@@ -46,116 +43,97 @@ public class PosterProject
         Picture blendedPic = blend(original, IWannaBeYours);
         
         // put on Canvas
-        copyToCanvas(tealVersion, acanvas, 2560, 0); // top right area original
-        copyToCanvas(original, acanvas, 0, 0); //top left area
-        copyToCanvas(mirrored, acanvas, 2560, 1440); // middle right area
-        copyToCanvas(grayScale, acanvas, 0, 1440); // middle right area
-        copyToCanvas(blendedPic, acanvas, 2560, 2880); //bottom right area
-        copyToCanvas(recursivePic, acanvas, 0, 2880); // bottom left area        
+        copyToCanvas(tealVersion, acanvas, 2560, 0);
+        copyToCanvas(original, acanvas, 0, 0);
+        copyToCanvas(mirrored, acanvas, 2560, 1440);
+        copyToCanvas(grayScale, acanvas, 0, 1440);
+        copyToCanvas(blendedPic, acanvas, 2560, 2880);
+        copyToCanvas(recursivePic, acanvas, 0, 2880);
+        
         // display
         acanvas.explore();
+        
+        acanvas.write("images/acnavas.jpg");
     }
 
-  
-// // RECURSION
-// public static Picture recursion(Picture source)
-// {
-    // Pixel sourcePix = null;
-    // Pixel targetPix = null;
-    
-    // int width = source.getWidth();
-    // int height = source.getHeight();
-    // Pixel leftPixel = null;
-    // Pixel rightPixel = null;
-        // for (int sourceX = 0; sourceX < source.getWidth(); sourceX++)
-        // {
-            // for (int sourceY = 0; sourceY < source.getHeight(); sourceY++)
-            // {
 
-            // }
-        // }
-// }
-    
-
-
-// RECURSION
-public static Picture recursion(Picture source, int times)
-{
-    // base case
-    if (times <= 0)
+    // RECURSION
+    public static Picture recursion(Picture source, int times)
     {
-        return source;
-    }
-
-    Picture result = new Picture(source);
-
-    // make recursive image larger
-    int smallWidth = (int)(source.getWidth() * 0.75);
-    int smallHeight = (int)(source.getHeight() * 0.75);
-
-    for (int x = 0; x < smallWidth; x++)
-    {
-        for (int y = 0; y < smallHeight; y++)
+        // base case
+        if (times <= 0)
         {
-            Pixel sourcePix = source.getPixel(
-                (int)(x / 0.75),
-                (int)(y / 0.75)
-            );
-
-            // bottom-left placement
-            Pixel targetPix = result.getPixel(
-                x,
-                source.getHeight() - smallHeight + y
-            );
-
-            targetPix.setColor(sourcePix.getColor());
+            return source;
         }
-    }
-
-    return recursion(result, times - 1);
-}
-
-
-//BLEND TWO IMAGES
-public static Picture blend(Picture pic1, Picture pic2)
-{
-    // make copy of first picture
-    Picture blended = new Picture(pic1);
-
-    Pixel pixel1 = null;
-    Pixel pixel2 = null;
-    Pixel blendedPixel = null;
-
-    // offsets to center pic2 inside pic1
-    int xOffset = (pic1.getWidth() - pic2.getWidth()) / 2;
-    int yOffset = (pic1.getHeight() - pic2.getHeight()) / 2;
-
-    // loop through second image
-    for (int x = 0; x < pic2.getWidth(); x++)
-    {
-        for (int y = 0; y < pic2.getHeight(); y++)
-        {
-            // pixel from original image at centered position
-            pixel1 = pic1.getPixel(x + xOffset, y + yOffset);
-
-            // pixel from second image
-            pixel2 = pic2.getPixel(x, y);
-
-            // pixel in blended image
-            blendedPixel = blended.getPixel(x + xOffset, y + yOffset);
-
-            // average colors
-            int red = (pixel1.getRed() + pixel2.getRed()) / 2;
-            int green = (pixel1.getGreen() + pixel2.getGreen()) / 2;
-            int blue = (pixel1.getBlue() + pixel2.getBlue()) / 2;
-
-            blendedPixel.setColor(new Color(red, green, blue));
-        }
-    }
-
-    return blended;
-}
     
+        Picture result = new Picture(source);
+    
+        int smallWidth = (int)(source.getWidth() * 0.75);
+        int smallHeight = (int)(source.getHeight() * 0.75);
+    
+        for (int x = 0; x < smallWidth; x++)
+        {
+            for (int y = 0; y < smallHeight; y++)
+            {
+                Pixel sourcePix = source.getPixel(
+                    (int)(x / 0.75),
+                    (int)(y / 0.75)
+                );
+    
+                Pixel targetPix = result.getPixel(
+                    x,
+                    source.getHeight() - smallHeight + y
+                );
+    
+                Color c = sourcePix.getColor();
+    
+                targetPix.setColor(c);
+            }
+        }
+    
+        return recursion(result, times - 1);
+    }   
+
+    
+    //BLEND TWO IMAGES
+    public static Picture blend(Picture pic1, Picture pic2)
+    {
+        // make copy of first picture
+        Picture blended = new Picture(pic1);
+    
+        Pixel pixel1 = null;
+        Pixel pixel2 = null;
+        Pixel blendedPixel = null;
+    
+        // offsets to center pic2 inside pic1
+        int xOffset = (pic1.getWidth() - pic2.getWidth()) / 2;
+        int yOffset = (pic1.getHeight() - pic2.getHeight()) / 2;
+    
+        for (int x = 0; x < pic2.getWidth(); x++)
+        {
+            for (int y = 0; y < pic2.getHeight(); y++)
+            {
+                // pixel from original image at centered position
+                pixel1 = pic1.getPixel(x + xOffset, y + yOffset);
+    
+                // pixel from second image
+                pixel2 = pic2.getPixel(x, y);
+    
+                // pixel in blended image
+                blendedPixel = blended.getPixel(x + xOffset, y + yOffset);
+    
+                // average colors
+                int red = (pixel1.getRed() + pixel2.getRed()) / 2;
+                int green = (pixel1.getGreen() + pixel2.getGreen()) / 2;
+                int blue = (pixel1.getBlue() + pixel2.getBlue()) / 2;
+    
+                blendedPixel.setColor(new Color(red, green, blue));
+            }
+        }
+    
+        return blended;
+    }
+        
 
 //GRAY SCALE
     public static void GrayScale(Picture source)
